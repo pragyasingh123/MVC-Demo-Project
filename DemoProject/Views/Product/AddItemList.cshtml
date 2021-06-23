@@ -1,0 +1,59 @@
+﻿@model List<DemoProject.Models.ItemMst>
+@{
+    ViewBag.Title = "AddItemList";
+}
+
+
+
+<h2>AddItemList</h2>
+@if (Model != null)
+{
+    <div class="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    Total Count: @Model.Count
+
+                </div>
+                <div class="col-md-12">
+
+                    <div class="filters-content">
+
+
+                        <div class="row grid">
+
+                            @foreach (var item in Model)
+                            {
+
+                                <div class="col-lg-4 col-md-4 all des">
+                                    <div class="product-item">
+
+                                        <img alt="@item.IName"
+                                             src="@Url.Content(item.ImagePath)" />
+
+                                        <div class="down-content">
+                                            <a href="#"><h4>@item.IName</h4></a>
+                                            <h6>@item.Price</h6>
+                                            <p>@item.Detail</p>
+                                            <ul class="stars">
+                                                <a href="@Url.Action("RemoveItem", "Product", new { uID = item.IID })">  Delete Item</a>
+                                            </ul>
+                                            <span>@item.Qnt</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+}

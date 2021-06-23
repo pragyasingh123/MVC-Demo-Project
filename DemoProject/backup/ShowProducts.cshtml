@@ -1,0 +1,119 @@
+﻿@model List<DemoProject.Models.ProductItem>
+
+
+
+@{
+    ViewBag.Title = "AddItem";
+}
+
+<h2>AddItem</h2>
+@if (Model != null)
+{
+
+<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 sidebar" id="leftCol">
+    <div class="scroller_anchor"></div>
+    <div class="dekstop-filter hidden-xs" id="sidebar" style="position: fixed; top: 90px; width: 250px;">
+       
+
+
+        <div class="filters-1">
+            <div class="filter-title">I'm looking for</div>
+            <div class="filter-inner-section">
+                <div class="checkbox-wrapper">
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="a=Boat Trips &amp; Cruises|Zoos, Farms &amp; Wildlife" value="30eac6af-a49c-4719-b0b9-7923d7e379ee" id="desktopLocationFilters">
+                        <span class="checkmark"></span>
+                        <p>Electronics</p>
+                    </label>
+                </div>
+                <div class="checkbox-wrapper">
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="a=Galleries &amp; Museums|Historical Houses, Gardens &amp; Parks|Landmarks &amp; Historical Sites" value="aa9714c1-6415-4788-ab52-ee340b3dd1c9" id="desktopLocationFilters">
+                        <span class="checkmark"></span>
+                        <p>Men's clothing</p>
+                    </label>
+                </div>
+                <div class="checkbox-wrapper">
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="a=Entertainment Shows &amp; Concerts" value="54ea2246-b974-470f-8a17-0513af791816" id="desktopLocationFilters">
+                        <span class="checkmark"></span>
+                        <p>Jewellery</p>
+                    </label>
+                </div>
+                <div class="checkbox-wrapper">
+                    <label class="filter-checkbox">
+                        <input type="checkbox" name="a=Food Drink &amp; Shopping" value="c7be4b5a-0140-4851-ac0f-e5bab5fc2420" id="desktopLocationFilters">
+                        <span class="checkmark"></span>
+                        <p>Women's clothing</p>
+                    </label>
+                </div>
+               
+              
+            </div>
+        </div>
+    </div>
+   
+
+
+
+</div>
+    <div class="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    Total Count : @Model.Count
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="items">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-3 col-md-3 item-added ">
+
+                                <img alt="@item.Title" src="@item.Image" style="width: 99%;" />
+                                <div class="down-content">
+                                    <h4>@item.Title</h4>
+                                    <h6>@item.Description</h6>
+
+                                    <p class="edit-item"> @item.Category </p>
+                                 
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<style>
+    .item-added {
+        border: 1px solid black;
+        border-radius: 26px;
+        margin-left: 51px;
+        margin-bottom: 20px;
+    }
+
+    .items {
+        margin-top: 40px;
+    }
+
+    .edit-item {
+        margin-top: 10px;
+        color: red;
+    }
+
+    p.edit-item a {
+        color: red;
+    }
+    .product {
+        margin-left: 27%;
+    }
+</style>
+

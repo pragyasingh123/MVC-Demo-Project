@@ -1,0 +1,181 @@
+﻿@model List<DemoProject.Models.ApiModel>
+
+
+
+@{
+    ViewBag.Title = "ProductListing";
+}
+
+<h2>AddItem</h2>
+@if (Model != null)
+{
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12" id="leftcol">
+
+        <div class="filter-item">
+            <div class="filters-1">
+                <div class="inner-section">
+                    <div class="heading">
+                        <h2>Filters</h2>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="clothing" value="clothing" id="filters">
+                        <span>Clothing</span>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="jewelery" value="jewelery" id="filters">
+                        <span>Jewellery</span>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="electronics" value="electronics" id="filters">
+                        <span>Electronics</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 total-items">
+                    Total Count : @Model.Count
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="items">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-lg-4 col-md-4 item-added ">
+
+                                <img alt="@item.Title" src="@item.Image" style="width: 99%;" />
+                                <div class="down-content">
+                                    <h4>@item.Title</h4>
+                                    <h6>@item.Description</h6>
+
+
+                                    <span>@item.Price</span>
+                                    <h6>@item.Category</h6>
+                                </div>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<style>
+    .item-added {
+        border: 1px solid black;
+        border-radius: 26px;
+        margin-left: 11px;
+        margin-bottom: 20px;
+    }
+
+    .items {
+        margin-top: 40px;
+    }
+
+    .edit-item {
+        margin-top: 10px;
+        color: red;
+    }
+
+    p.edit-item a {
+        color: red;
+    }
+
+    .product {
+        margin-left: 30%;
+    }
+
+    .filter-item {
+        margin-top: 66px;
+        position: fixed;
+    }
+
+    .checkbox {
+        margin: 22px;
+    }
+
+    .heading {
+        margin: 20px;
+        color: rebeccapurple;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+   
+    var selectedItems = [];
+    $("input[type='checkbox']").on("click", function () {
+        debugger;
+        var checkedData = "";
+        var val = $(this).val();
+       
+        if ($(this).prop("checked")) {
+            if (selectedItems.indexOf(val) ==-1) {
+                selectedItems.push(val)
+            }
+            
+        }
+        else {
+            if (selectedItems.indexOf(val)!== -1) {
+                selectedItems.pop(val)
+            }
+            
+        }
+        $.each(selectedItems, function (index, value) {
+            checkedData += "|" + value;
+        })
+        var url = "/Shopping/GetSpecificItem?filterType=" + checkedData;
+        callAjax(url);
+
+    
+       
+    })
+
+    function callAjax(url) {
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                BindData(response);
+                
+            },
+            error: function (xhr, status, error) {
+                debugger;
+                alert(error);
+            }
+
+
+        })
+    }
+
+    function BindData(response) {
+        var data = response.data;
+        var totalItems = response.totalItems;
+        $(".items .row").empty();
+        var innerData = "Total Items: " + totalItems;
+        $(".total-items").empty();
+        $(".total-items").append(innerData);
+        var html = "";
+        for (var i = 0; i < data.length; i++) {
+            html += "<div class='col-lg-4 col-md-4 item-added'>"+
+                "<img alt=" + data[i].Title + " src=" + data[i].Image + " style='width: 99%;' />" +
+                "<div class='down-content'>" + "<h4>" + data[i].Title + "</h4>" + "<h6>" + data[i].Description+"</h6>"+
+                "<span>"+data[i].Price+"</span>"+"<h6>"+data[i].Category+"</h6></div></div>";
+
+
+        }
+        $(".items .row").append(html);
+    }
+    </script>

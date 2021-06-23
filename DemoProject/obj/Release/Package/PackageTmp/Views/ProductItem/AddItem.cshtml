@@ -1,0 +1,68 @@
+﻿@model List<DemoProject.Models.ItemMst>
+
+
+
+@{
+    ViewBag.Title = "AddItem";
+}
+
+<h2>AddItem</h2>
+@if (Model != null) {
+
+
+<div class="product">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                Total Count : @Model.Count 
+                </div>
+            </div>
+
+        <div class="col-md-12">
+            <div class="items">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                <div class="col-lg-4 col-md-4 item-added ">
+
+                    <img alt="@item.CName" src="@Url.Content(item.ImagePath)"  style="width: 99%;"/>
+                    <div class="down-content">
+                        <h4>@item.IName</h4>
+                        <h6>@item.Detail</h6>
+
+                        <a href="@Url.Action("RemoveItem","ProductItem",new { uID=item.IID})">Delete Item</a>
+                       <p class="edit-item"> <a href="@Url.Action("EditItem","ProductItem",new { uID=item.IID})">Edit Item</a></p>
+                        <span>@item.Qnt</span>
+                        <h6>@item.CName</h6>
+                    </div>
+                </div>
+                    }
+
+
+                </div>
+                </div>
+        </div>
+    </div>
+
+    </div>
+}
+
+<style>
+    .item-added {
+        border: 1px solid black;
+        border-radius: 26px;
+        margin-left: 11px;
+        margin-bottom: 20px;
+    }
+    .items {
+        margin-top: 40px;
+    }
+    .edit-item {
+        margin-top:10px;
+        color: red;
+    }
+    p.edit-item a {
+        color: red;
+    }
+    </style>
+

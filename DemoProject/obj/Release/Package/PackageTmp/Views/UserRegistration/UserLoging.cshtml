@@ -1,0 +1,83 @@
+﻿@model DemoProject.Models.UserData
+
+@{
+    ViewBag.Title = "UserLoging";
+}
+
+<h2>UserLoging</h2>
+
+
+
+<div class="send-message">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-heading">
+                    <h2>Login Form</h2>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="contact-form">
+                    <div class="row">
+                        @using (Html.BeginForm())
+                        {
+
+
+                            <table>
+                                <tr>
+                                    <td>
+
+                                       
+                                            @Html.LabelFor(a => a.UserName)
+                                            
+                                    </td>
+                                    <td>
+                                        @Html.EditorFor(a => a.UserName)
+                                    </td>
+                                    <td>
+                                        @Html.ValidationMessageFor(a => a.UserName)
+                                    </td>
+                                </tr>
+                                <tr><br /></tr>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(a => a.UserPassword)
+                                    </td>
+                                    <td>
+                                        @Html.PasswordFor(a => a.UserPassword)
+                                    </td>
+                                    <td>
+                                        @Html.ValidationMessageFor(a => a.UserPassword)
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td> <input type="submit" value="UserLoging" class="filled-button" /></td>
+                                </tr>
+                                <br />
+
+                                @{
+
+                                    if (Session["InvalidCredentials"] != null)
+                                    {
+                                        <p>Invalid credentials, please enter valid data</p>
+                                    }
+
+                                    Session.Remove("InvalidCredentials");
+
+                                }
+                            </table>
+
+
+                        }
+
+
+                        </div>
+                    </div>
+                <div class="forget-password">
+                    <a href=""> Forget password</a>
+                    </div>
+                </div>
+        </div>
+</div>
+</div>
